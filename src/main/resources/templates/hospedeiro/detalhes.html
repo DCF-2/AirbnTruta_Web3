@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Hospedagem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+    
+    <div class="container mt-5">
+        <a href="/hospedeiro/index" class="btn btn-outline-light mb-3">⬅ Voltar ao Painel</a>
+        
+        <div class="card shadow bg-secondary text-white border-0">
+            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                <h3 class="mb-0" th:text="${hospedagem.descricaoCurta}"></h3>
+                
+                <span th:if="${hospedagem.fugitivo == null}" class="badge bg-success text-white">Disponível</span>
+                <span th:if="${hospedagem.fugitivo != null}" class="badge bg-danger text-white">OCUPADA</span>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="text-light opacity-75">Descrição:</h5>
+                        <p class="lead" th:text="${hospedagem.descricaoLonga}"></p>
+                    </div>
+                    <div class="col-md-4 border-start border-dark">
+                         <p><strong>📍 Local:</strong> <span th:text="${hospedagem.localizacao}"></span></p>
+                         <p><strong>💰 Diária:</strong> R$ <span th:text="${hospedagem.diaria}"></span></p>
+                         <div th:if="${hospedagem.fugitivo != null}" class="alert alert-dark mt-3">
+                            <strong>👤 Inquilino Atual:</strong><br>
+                            Vulgo: <span th:text="${hospedagem.fugitivo.vulgo}"></span><br>
+                            Facção: <span th:text="${hospedagem.fugitivo.faccao}"></span>
+                         </div>
+                    </div>
+                </div>
+
+                <hr class="border-dark">
+                
+                <h4 class="mt-4">📋 Lista de Interessados</h4>
+                
+                <div th:if="${interesses.isEmpty()}" class="alert alert-dark text-center">
+                    Nenhum fugitivo se interessou por este mocó ainda.
+                </div>
+
+                <div class="table-responsive" th:if="${!interesses.isEmpty()}">
+                    <table class="table table-dark table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>Vulgo</th>
+                                <th>Especialidade</th>
+                                <th>Proposta</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="i : ${interesses}">
+                                <td th:text="${i.interessado.vulgo}" class="text-info fw-bold"></td>
+                                <td th:text="${i.interessado.especialidade}"></td>
+                                <td th:text="${i.proposta}" class="fst-italic"></td>
+                                <td>
+                                    <a th:if="${hospedagem.fugitivo == null}" 
+                                       th:href="@{/hospedeiro/aceitar/{id}(id=${i.codigo})}" 
+                                       class="btn btn-success btn-sm">
+                                       ✅ Aceitar
+                                    </a>
+                                    <span th:if="${hospedagem.fugitivo != null}" class="text-muted small">
+                                        (Imóvel Ocupado)
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Esconderijos Disponíveis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-dark text-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">🕵️ AirBnTruta</a>
+            <div class="d-flex text-white align-items-center">
+                <span class="me-3">Logado como: <strong th:text="${fugitivo.vulgo}"></strong></span>
+                <a href="/fugitivo/logout" class="btn btn-sm btn-danger">Sair</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="card bg-secondary text-white mb-4 p-3">
+            <form action="/fugitivo/index" method="get" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Localização (ex: Favela, Centro)</label>
+                    <input type="text" name="local" class="form-control" placeholder="Onde você quer se esconder?">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Preço Máximo (Diária)</label>
+                    <input type="number" name="precoMax" class="form-control" placeholder="R$ 0,00">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Filtrar</button>
+                </div>
+                <div class="col-md-2">
+                    <a href="/fugitivo/index" class="btn btn-outline-light w-100">Limpar</a>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${hospedagens.isEmpty()}" class="alert alert-warning text-center">
+            Nenhum mocó encontrado com esses critérios, parça. Tenta outro lugar!
+        </div>
+
+        <div class="row">
+            <div th:each="h : ${hospedagens}" class="col-md-4 mb-4">
+                <div class="card h-100 text-dark">
+                    <div class="card-header bg-warning fw-bold">
+                        <i class="bi bi-house-door-fill"></i> <span th:text="${h.descricaoCurta}"></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-success" th:text="'R$ ' + ${h.diaria} + ' / dia'"></h5>
+                        <p class="card-text">
+                            <strong>Local:</strong> <span th:text="${h.localizacao}"></span><br>
+                            <small class="text-muted" th:text="${h.descricaoLonga}"></small>
+                        </p>
+                        <hr>
+                        <p class="mb-1"><strong>Serviços:</strong></p>
+                        <ul class="list-unstyled small">
+                            <li th:each="s : ${h.servicos}">
+                                <i class="bi bi-check"></i> <span th:text="${s.nome}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a th:href="@{/fugitivo/interesse/{id}(id=${h.codigo})}" class="btn btn-dark w-100">
+                            <i class="bi bi-heart"></i> Tenho Interesse
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

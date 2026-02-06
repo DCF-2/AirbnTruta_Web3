@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>AirBnTruta - Bem Vindo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #212529; /* Dark background */
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .card-choice {
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .card-choice:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-3 mb-5 fw-bold text-warning">🕵️ AirBnTruta</h1>
+        <p class="lead mb-5">O melhor sistema de hospedagem para quem precisa... desaparecer.</p>
+
+        <div class="row justify-content-center g-4">
+            
+            <div class="col-md-5">
+                <div class="card bg-secondary text-white h-100 card-choice shadow">
+                    <div class="card-body p-5">
+                        <h3>🏠 Sou Hospedeiro</h3>
+                        <p>Tenho um local seguro e quero faturar.</p>
+                        <a href="/hospedeiro/login" class="btn btn-warning btn-lg w-100 mt-3">Entrar como Chefe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card bg-secondary text-white h-100 card-choice shadow">
+                    <div class="card-body p-5">
+                        <h3>🏃‍♂️ Sou Fugitivo</h3>
+                        <p>Preciso de um mocó urgente.</p>
+                        <a href="/fugitivo/login" class="btn btn-info btn-lg w-100 mt-3">Procurar Esconderijo</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <footer class="mt-5 text-muted">
+            <small>Desenvolvido na disciplina de Web 3 - IFPE</small>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Hospedeiro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+    
+    <nav class="navbar navbar-dark bg-secondary px-4 mb-4 d-flex justify-content-between">
+        <span class="navbar-brand">🏠 Área do Hospedeiro</span>
+        <div>
+            <span class="me-3 fw-bold" th:if="${session.hospedeiroLogado != null}" th:text="${session.hospedeiroLogado.vulgo}"></span>
+            <a href="/hospedeiro/new" class="btn btn-sm btn-warning me-2">+ Novo Mocó</a>
+            <a href="/hospedeiro/logout" class="btn btn-sm btn-danger">Sair</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h3 class="mb-4">Meus Imóveis Cadastrados</h3>
+
+        <div th:if="${hospedagens.isEmpty()}" class="alert alert-info text-center">
+            Você não tem nenhum esconderijo cadastrado. <a href="/hospedeiro/new" class="alert-link">Cadastre o primeiro!</a>
+        </div>
+
+        <div class="row">
+            <div th:each="h : ${hospedagens}" class="col-md-4 mb-4">
+                <div class="card bg-secondary text-white h-100 border-0 shadow">
+                    <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                        <span th:text="${h.descricaoCurta}" class="fw-bold"></span>
+                        
+                        <div class="badges">
+                             <span th:if="${h.temInteresse and h.fugitivo == null}" class="badge bg-danger">🔔 Proposta!</span>
+                             <span th:if="${h.fugitivo != null}" class="badge bg-success">⛔ Ocupado</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="text-warning" th:text="'R$ ' + ${h.diaria}"></h5>
+                        <p class="small mb-1"><i class="bi bi-geo-alt"></i> <span th:text="${h.localizacao}"></span></p>
+                        <p class="small text-light opacity-75" th:text="${h.descricaoLonga}"></p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0 d-flex gap-2">
+                        <a th:href="@{/hospedeiro/viewhospedagem/{id}(id=${h.codigo})}" class="btn btn-info flex-grow-1">
+                            Gerenciar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

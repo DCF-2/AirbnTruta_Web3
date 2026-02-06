@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login do Chefe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #212529; color: #f8f9fa; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card-login { background-color: #343a40; border: 1px solid #495057; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .form-control { background-color: #212529; border-color: #495057; color: white; }
+        .form-control:focus { background-color: #2b3035; color: white; border-color: #ffc107; box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25); }
+        .modal-content { background-color: #343a40; color: white; }
+        .modal-header, .modal-footer { border-color: #495057; }
+        .btn-close { filter: invert(1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card card-login p-4">
+                    <div class="card-body text-center">
+                        <h2 class="mb-4 text-warning">🏠 Área do Hospedeiro</h2>
+                        <div th:if="${msg}" class="alert alert-danger" th:text="${msg}"></div>
+
+                        <form th:action="@{/hospedeiro/login}" method="post">
+                            <div class="mb-3 text-start">
+                                <label class="form-label">Vulgo / Usuário</label>
+                                <input type="text" name="vulgo" class="form-control" required>
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label class="form-label">Senha</label>
+                                <input type="password" name="senha" class="form-control" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning fw-bold">Entrar</button>
+                            </div>
+                        </form>
+
+                        <p class="mb-0 mt-3">Ainda não tem casa segura?</p>
+                        <button type="button" class="btn btn-outline-light btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalCadastro">Criar Conta</button>
+                        
+                        <hr class="border-secondary my-4">
+                        <a href="/" class="btn btn-outline-secondary w-100 btn-sm">⬅ Voltar ao Início</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCadastro" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Cadastro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/hospedeiro/save}" method="post" th:object="${hospedeiro}">
+                        <div class="mb-3"><label>Nome</label><input type="text" name="nome" class="form-control" required></div>
+                        <div class="mb-3"><label>Vulgo</label><input type="text" name="vulgo" class="form-control" required></div>
+                        <div class="mb-3"><label>Contato</label><input type="text" name="contato" class="form-control"></div>
+                        <div class="mb-3"><label>Senha</label><input type="password" name="senha" class="form-control" required></div>
+                        <div class="d-grid"><button type="submit" class="btn btn-success">Cadastrar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

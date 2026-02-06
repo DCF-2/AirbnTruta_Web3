@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Mocó</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+    
+    <div class="container mt-5">
+        <a href="/fugitivo/meus-interesses" class="btn btn-outline-light mb-3">⬅ Voltar ao Painel</a>
+
+        <div class="card shadow bg-secondary text-white border-0">
+            <div class="card-header bg-info text-dark d-flex justify-content-between align-items-center">
+                <h3 class="mb-0" th:text="${hospedagem.descricaoCurta}"></h3>
+                <span class="badge bg-dark" th:text="'R$ ' + ${hospedagem.diaria} + '/dia'"></span>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="text-light opacity-75">O que tem no local:</h5>
+                        <p class="lead" th:text="${hospedagem.descricaoLonga}"></p>
+                    </div>
+                    <div class="col-md-4 border-start border-dark">
+                         <p><strong>📍 Localização:</strong> <span th:text="${hospedagem.localizacao}"></span></p>
+                         
+                         <div th:if="${hospedagem.fugitivo != null and hospedagem.fugitivo.codigo == fugitivo.codigo}" class="alert alert-dark mt-3">
+                            <h5 class="text-warning">🔒 Dados Seguros:</h5>
+                            <p><strong>Dono (Vulgo):</strong> <span th:text="${hospedagem.hospedeiro.vulgo}"></span></p>
+                            <p><strong>Contato:</strong> <span th:text="${hospedagem.hospedeiro.contato}"></span></p>
+                            
+                            <hr>
+                            <a th:href="@{/fugitivo/checkout/{id}(id=${hospedagem.codigo})}" 
+                               class="btn btn-danger w-100"
+                               onclick="return confirm('Vai abandonar o barco mesmo?')">
+                                🏃‍♂️ Vazado (Sair da Casa)
+                            </a>
+                         </div>
+
+                         <div th:if="${hospedagem.fugitivo == null}" class="alert alert-info mt-3">
+                            Aguardando aprovação do dono...
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
