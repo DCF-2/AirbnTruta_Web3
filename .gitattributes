@@ -1,2 +1,33 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+# Define o comportamento padrão para detecção de texto
+* text=auto
+
+# Força arquivos Java a serem contados como linguagem e define diff correto
+*.java text diff=java linguist-detectable=true
+
+# Web Resources
+*.html text
+*.css text
+*.js text
+
+# Documentação e Configuração
+*.md text
+*.xml text
+*.properties text
+*.sql text
+*.txt text
+
+# Binários (Para garantir que o Git não estrague esses arquivos)
+*.jar binary
+*.war binary
+*.class binary
+*.exe binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Ignorar pastas de build nas estatísticas de linguagem (caso suba sem querer)
+target/* linguist-vendored
