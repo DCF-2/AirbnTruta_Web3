@@ -10,7 +10,7 @@ O **AirBnTruta** é um sistema web desenvolvido como projeto da disciplina de **
 
 Confira abaixo o vídeo demonstrando o fluxo completo (Cadastro, Login, Busca, Reserva e Aprovação):
 
-[![Assista ao Vídeo](https://img.youtube.com/vi/VIDEO_ID_AQUI/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID_AQUI)
+[![Assista ao Vídeo](https://i.ytimg.com)](https://www.youtube.com/watch?v=qPMTrD-WjWQ)
 
 *Sistema do AirbnTruta*
 
